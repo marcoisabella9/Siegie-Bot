@@ -1,7 +1,8 @@
-require('dotenv').config();
+require('dotenv').config(); //requires dotenv, used for token
 
 const {Client, IntentsBitField} = require('discord.js');
 
+//client requires certain permissions from discord
 const client = new Client ({
     intents: [
         IntentsBitField.Flags.Guilds,
@@ -12,22 +13,26 @@ const client = new Client ({
     ]
 });
 
+//welcome message when initialized
 client.on('ready', (c) => {
     console.log(`${c.user.username} is online. 😊 Type '!checkSiege' to check the Squad!`);
 });
 
-client.on('messageCreate', (message) => {
+client.on('messageCreate', async (message) => { //async function allows for 'await' otherwise will reply multiple times
     if (message.content === '!checkSiege') {
-        const guild = message.guild;
         const activityToCheck = 'Rainbow Six Siege';  //can change activity to any desired game
-
         let count = 0;
-        guild.members.cache.forEach(member => {
-            member.presence.activities.forEach(activity => {
-                if (activity.type === 'PLAYING' && activity.name === activityToCheck) {
-                    count++;
-                }
-            });
+        
+        const members = await message.guild.members.fetch();
+        members.forEach(member => {
+            if (member.presence && member.presence.activities) { //user only counted if has presence and has an activity
+                member.presence.activities.forEach(activity => {
+                    console.log(`${member.user.username}: ${activity.name}`); //for debugging
+                    if (activity.name === activityToCheck) {
+                        count++;
+                    }
+                });
+            }
         });
 
         if (count < 1) {
@@ -45,4 +50,4 @@ client.on('messageCreate', (message) => {
     }
 })
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN); //uses token from .env to remain private
