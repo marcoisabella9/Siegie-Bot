@@ -1,6 +1,6 @@
 require('dotenv').config(); //requires dotenv, used for token
 
-const {Client, IntentsBitField} = require('discord.js');
+const {Client, IntentsBitField, ActivityType} = require('discord.js'); //imports from discord.js, Client - Bot itself, IntentsBitField - Intents (seen below), ActivityType - for custom status
 
 //client requires certain permissions from discord
 const client = new Client ({
@@ -13,13 +13,23 @@ const client = new Client ({
     ]
 });
 
-//welcome message when initialized
+//runs when bot initialized
 client.on('ready', (c) => {
-    console.log(`${c.user.username} is online. 😊 Type '!checkSiege' to check the Squad!`);
+    console.log(`${c.user.username} is online. 😊 Type '!checksiege' to check the Squad, or !help`);
+
+    //sets bot custom status
+    client.user.setActivity({
+        name: 'Type !help',
+        type: ActivityType.Custom
+    })
 });
 
 client.on('messageCreate', async (message) => { //async function allows for 'await' otherwise will reply multiple times
-    if (message.content === '!checkSiege') {
+    if (message.content.toLowerCase() === '!help') {
+        message.channel.send(`Siegie is online. 😊 Type '!checkSiege' to check the Squad!`);
+    }
+    
+    if (message.content.toLowerCase() === '!checksiege') {
         const activityToCheck = 'Rainbow Six Siege';  //can change activity to any desired game
         let count = 0;
         
@@ -41,11 +51,11 @@ client.on('messageCreate', async (message) => { //async function allows for 'awa
         else if (count < 4) {
             message.channel.send(`Siege Squad could use some more right now, only ${count} on! 👀`);
         }
-        else if (count >= 5) {
-            message.channel.send(`Siege Squad is full... 😞 better luck next time.`);
+        else if (count === 4) {
+            message.channel.send(`Act Fast! Only one more spot on Siege! 🏃‍♂️`);
         }
         else {
-            message.channel.send(`Act Fast! Only one more spot on Siege! 🏃‍♂️`);
+            message.channel.send(`Siege Squad is full... 😞 better luck next time.`);
         }
     }
 })
