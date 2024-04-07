@@ -1,3 +1,12 @@
 # Siegie Bot
- A Discord bot used to track which how close your friends are to a full stack on R6 Siege.
-<br><br>
+A Discord bot used to track how many of your friends are playing a certain game.
+<br>
+<br>
+<h2>Goal</h2>
+A big part of web-based programming is utilizing other people's services. Being able to get and use information from other sites is something that I have seen been used in web applications such as <a href="https://receiptify.herokuapp.com">Receiptify</a>, which uses Spotify's API to show off your listening history in a unique format. Knowing that I wanted to learn how to utilize an API, I began thinking of how I could get started. An application I use regularly is Discord, a program I use to communicate with friends through both text, and calls, which also supports the creation of community made chatbots with their own API. A unique problem me and my friends have faced recently is that we use Discord to play a game, Rainbow Six Siege, together, but the game only allows for groups of five. Regularly I would notice my friends joining the call, only to be told there was no room for them, and then coming back every once in a while to see if there was a spot. I figured that I could create a chatbot that uses Discord's API to be able to receive a command and reply to the user with whether or not there was room for them, saving them the embarrassment of asking for a spot on a full team.
+<br>
+<h2>Implementation</h2>
+After creating the bot itself on the Discord Developer site, I was exposed to a long list of documentation. The pages and pages of possibilities was extremely overwhelming at first, but over the course of the next few days I was able to navigate the sections I needed and became comfortable with how to translate it to my own code. Something else I was unfamiliar with was how to host the bot myself through node js. After downloading the required packages, I was quickly up and running with a bot that I could have send messages back to me. I iterate through every user's activity in the server and compare the activity name with the desired game, in this case 'Rainbow Six Siege'. Now any user can type !checksiege and the bot will respond with how many spots there are left to be filled. I also changed the bot's status to 'Type !help' so all users can see how they can have the bot tell them the available commands.
+<br>
+<h2>Reflection</h2>
+This experience not only taught me what I was expecting in how to utilize a basic API, but also how to use node.js and allowed me to exercise my problem solving and critical thinking skills to bring an idea to a real problem solution for me and my friends.
