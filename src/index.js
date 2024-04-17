@@ -35,10 +35,12 @@ client.on('messageCreate', async (message) => { //async function allows for 'awa
         
         const members = await message.guild.members.fetch();
         members.forEach(member => {
+            // console.log(`${member.presence} ${member.presence.activities}`);
             if (member.presence && member.presence.activities) { //user only counted if has presence and has an activity
                 member.presence.activities.forEach(activity => {
                     console.log(`${member.user.username}: ${activity.name}`); //for debugging
-                    if (activity.name === activityToCheck) {
+                    if (activity.name.indexOf(activityToCheck) > -1) {
+                        console.log(activity.name.indexOf(activityToCheck) > -1)
                         count++;
                     }
                 });
